@@ -1,0 +1,11 @@
+:host {
+  display: block;
+  background-image: url("../assets/background.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh; /* Use viewport height to fill the entire screen */
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}

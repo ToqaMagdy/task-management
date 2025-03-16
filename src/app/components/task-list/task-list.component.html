@@ -1,0 +1,98 @@
+<div class="table-responsive">
+  <table class="table table-hover">
+    <thead class="table-light">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col" sortable="title" (sort)="onSort($event)">
+          <div class="d-flex align-items-center">
+            Title <i class="bi bi-arrow-down-up ms-1"></i>
+          </div>
+        </th>
+        <th scope="col" sortable="description" (sort)="onSort($event)">
+          <div class="d-flex align-items-center">
+            Description <i class="bi bi-arrow-down-up ms-1"></i>
+          </div>
+        </th>
+        <th scope="col" sortable="priority" (sort)="onSort($event)">
+          <div class="d-flex align-items-center">
+            Priority <i class="bi bi-arrow-down-up ms-1"></i>
+          </div>
+        </th>
+        <th scope="col" sortable="dueDate" (sort)="onSort($event)">
+          <div class="d-flex align-items-center">
+            Due Date <i class="bi bi-arrow-down-up ms-1"></i>
+          </div>
+        </th>
+        <th scope="col" sortable="status" (sort)="onSort($event)">
+          <div class="d-flex align-items-center">
+            Status <i class="bi bi-arrow-down-up ms-1"></i>
+          </div>
+        </th>
+        <th scope="col" sortable="createdBy" (sort)="onSort($event)">
+          <div class="d-flex align-items-center">
+            Created By <i class="bi bi-arrow-down-up ms-1"></i>
+          </div>
+        </th>
+        <th scope="col" class="text-center">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (task of tasks; track task.title) {
+      <tr>
+        <th scope="row">{{ task.id }}</th>
+        <td>{{ task.title }}</td>
+        <td>{{ task.description }}</td>
+        <td>
+          <span
+            class="badge"
+            [ngClass]="{
+              'bg-danger': task.priority === 'HIGH',
+              'bg-warning': task.priority === 'MEDIUM',
+              'bg-info': task.priority === 'LOW'
+            }"
+            >{{ task.priority }}</span
+          >
+        </td>
+        <td>{{ task.dueDate | date : "dd/MM/yyyy" }}</td>
+        <td>
+          <span
+            class="badge"
+            [ngClass]="{
+              'bg-success': task.status === 'COMPLETED',
+              'bg-primary': task.status === 'IN_PROGRESS',
+              'bg-secondary': task.status === 'TODO'
+            }"
+            >{{ task.status }}</span
+          >
+        </td>
+        <td>{{ task.createdBy }}</td>
+        <td>
+          <div class="d-flex justify-content-center">
+            <button
+              class="btn btn-outline-primary btn-sm me-1"
+              (click)="edit.emit(task)"
+              title="Edit"
+            >
+              <i class="bi bi-pencil-square"></i>
+            </button>
+            <button
+              class="btn btn-outline-danger btn-sm me-1"
+              (click)="delete.emit(task)"
+              title="Delete"
+            >
+              <i class="bi bi-trash"></i>
+            </button>
+            <button
+              class="btn btn-outline-success btn-sm"
+              (click)="complete.emit(task)"
+              title="Mark as Completed"
+            >
+              <i class="bi bi-check-circle"></i>
+            </button>
+          </div>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
