@@ -7,7 +7,7 @@ import { Task } from '../models/task.interface';
   providedIn: 'root',
 })
 export class TaskService {
-  private readonly apiUrl = 'http://localhost:8081/tasks'; // Backend endpoint
+  private readonly apiUrl = 'http://localhost:8081/tasks';
 
   constructor(private readonly http: HttpClient) {}
 

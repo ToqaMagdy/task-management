@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { jwtDecode } from 'jwt-decode';
 
-
 @Injectable({
   providedIn: 'root',
 })
@@ -18,21 +17,21 @@ export class AuthService {
       .post<{ token: string }>(this.apiUrl, { username, password })
       .pipe(
         tap((response) => {
-          localStorage.setItem('jwt_token', response.token); // Store JWT
+          localStorage.setItem('jwt_token', response.token);
         })
       );
   }
 
   logout(): void {
-    localStorage.removeItem('jwt_token'); // Remove token on logout
+    localStorage.removeItem('jwt_token');
   }
 
   getToken(): string | null {
-    return localStorage.getItem('jwt_token'); // Retrieve stored token
+    return localStorage.getItem('jwt_token');
   }
 
   isLoggedIn(): boolean {
-    return !!this.getToken(); // Check if user has a token
+    return !!this.getToken();
   }
 
   isTokenExpired(token: string): boolean {
@@ -40,9 +39,9 @@ export class AuthService {
 
     try {
       const decodedToken: any = jwtDecode(token);
-      return decodedToken.exp * 1000 < Date.now(); // Convert to milliseconds and compare
+      return decodedToken.exp * 1000 < Date.now();
     } catch (error) {
-      return true; // If decoding fails, assume token is expired
+      return true;
     }
   }
 }
